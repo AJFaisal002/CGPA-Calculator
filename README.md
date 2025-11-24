@@ -39,18 +39,6 @@ You can paste text copied from the marksheet and the site will:
 | D           | 2.00       |
 | F           | 0.00       |
 
-GPA is calculated as:
-
-\[
-GPA = \frac{\sum (C_i \times G_i)}{\sum C_i}
-\]
-
-where:
-
-- \( C_i \) = course credit  
-- \( G_i \) = grade point for that course  
-
----
 
 ## 🚀 How to Use (Online)
 
@@ -63,3 +51,6 @@ where:
    CSE-142	1.5	Level 1 - Term I	Yes	C	regular
    EE-182	1.5	Level 1 - Term I	Yes	C	regular
    ...
+   
+👤 Author
+Adnan Faisal
