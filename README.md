@@ -65,5 +65,6 @@ A detailed demonstration is available in the file:
    EE-182	1.5	Level 1 - Term I	Yes	C	regular
    ...
    
-👤 Author
-Adnan Faisal
+## 👨‍💻 Developed by
+**Adnan Faisal**
+📧 ajfaisal1208023@gmail.com
