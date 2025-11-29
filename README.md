@@ -1,7 +1,7 @@
 # CGPA Calculation – E-Grading System
 
 🔗 **Live Website:**  
-https://ajfaisal002.github.io/CGPA-Calculation/
+https://ajfaisal002.github.io/CGPA-Calculator/
 
 A simple web-based CGPA calculator that uses my university’s official grading system.  
 You can paste text copied from the marksheet and the site will:
@@ -9,6 +9,19 @@ You can paste text copied from the marksheet and the site will:
 - Extract course code, credit, and grade  
 - Calculate **Semester GPA**  
 - Optionally calculate **Overall CGPA** using previous credits + CGPA  
+
+---
+
+## 🎥 Watch the Full Tutorial
+
+A detailed demonstration is available in the file:
+
+📁 **How to use.mp4**
+
+- ✅ This video shows:
+- ✅ How to copy data properly
+- ✅ How to identify formatting errors
+- ✅ How CGPA and semester GPA are calculated
 
 ---
 
@@ -52,5 +65,6 @@ You can paste text copied from the marksheet and the site will:
    EE-182	1.5	Level 1 - Term I	Yes	C	regular
    ...
    
-👤 Author
-Adnan Faisal
+## 👨‍💻 Developed by
+**Adnan Faisal**
+📧 ajfaisal1208023@gmail.com
