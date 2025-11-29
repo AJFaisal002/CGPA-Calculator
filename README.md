@@ -1,7 +1,7 @@
 # CGPA Calculation – E-Grading System
 
 🔗 **Live Website:**  
-https://ajfaisal002.github.io/CGPA-Calculation/
+https://ajfaisal002.github.io/CGPA-Calculator/
 
 A simple web-based CGPA calculator that uses my university’s official grading system.  
 You can paste text copied from the marksheet and the site will:
