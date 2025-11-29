@@ -12,6 +12,19 @@ You can paste text copied from the marksheet and the site will:
 
 ---
 
+## 🎥 5. Watch the Full Tutorial
+
+A detailed demonstration is available in the file:
+
+📁 **How to use.mp4**
+
+- ✅ This video shows:
+- ✅ How to copy data properly
+- ✅ How to identify formatting errors
+- ✅ How CGPA and semester GPA are calculated
+
+---
+
 ## 📌 Features
 
 - ✅ Uses official letter grade → grade point mapping (A+, A, A-, …, F)  
