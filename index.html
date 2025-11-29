@@ -1,265 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>E-Grading System | CGPA Calculator</title>
-<style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f5f6fa;
-    }
-    header {
-        background: #005bbb;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        font-size: 28px;
-    }
-    .container {
-        width: 90%;
-        max-width: 900px;
-        margin: 30px auto;
-        background: white;
-        padding: 25px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        border-radius: 8px;
-    }
-    textarea {
-        width: 100%;
-        height: 160px;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        margin-bottom: 15px;
-        font-size: 14px;
-    }
-    button {
-        background: #005bbb;
-        color: white;
-        padding: 12px 20px;
-        cursor: pointer;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        margin-right: 10px;
-    }
-    button:hover {
-        background: #00408a;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 25px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-    }
-    th {
-        background: #dfe6e9;
-    }
-    .result-box {
-        font-size: 20px;
-        margin-top: 20px;
-        padding: 15px;
-        background: #e3f6ff;
-        border-left: 5px solid #0077b6;
-    }
-    label {
-        font-weight: 600;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>CUET CGPA Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .btn-bar {
+            margin: 10px 0 20px;
+            text-align: right;
+        }
+
+        button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #005ec0;
+        }
+
+        /* Your popup-style card */
+        .container {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(90deg, #007bff, #00c4ff);
+            padding: 10px 15px;
+            margin: 0;
+            border-radius: 5px 5px 0 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .results {
+            background: #fff;
+            border-radius: 0 0 5px 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .semester {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .semester strong {
+            color: #007bff;
+        }
+
+        .cgpa-value {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .additional-info {
+            color: #666;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .failed {
+            color: #dc3545;
+            font-style: italic;
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .info {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 12px 0;
+        }
+    </style>
 </head>
 <body>
+<div class="wrapper">
+    <h1>CUET CGPA Calculator</h1>
 
-<header>E-Grading System | CGPA Calculator</header>
+    <p class="info">
+        Paste the marksheet table copied from CUET result page
+        (<em>Course Code, Course Credit, Level-Term, Sessional, Result, Course type</em>),
+        then click <strong>Calculate CGPA</strong>.
+    </p>
 
-<div class="container">
+    <textarea id="inputText" placeholder="Paste your marksheet text here..."></textarea>
 
-<h2>Paste Extracted Marksheet Text</h2>
-<textarea id="inputText" placeholder="Paste text extracted from the marksheet..."></textarea>
+    <div class="btn-bar">
+        <button id="calcBtn">Calculate CGPA</button>
+    </div>
 
-<button onclick="extractData()">Extract Courses</button>
-
-<div id="courseTable"></div>
-<div id="gpaResult"></div>
-
-<hr style="margin: 30px 0;">
-
-<h2>Overall CGPA Calculator</h2>
-
-<label>Previous Total Credits:</label><br>
-<input type="number" id="prevCredits" placeholder="Ex: 35" style="width:150px;padding:8px;"><br><br>
-
-<label>Previous CGPA:</label><br>
-<input type="number" id="prevCgpa" placeholder="Ex: 3.45" step="0.01" style="width:150px;padding:8px;"><br><br>
-
-<button onclick="calculateOverall()">Calculate Overall CGPA</button>
-
-<div id="overallResult"></div>
-
+    <div class="container">
+        <h2>CUET CGPA Results</h2>
+        <div class="warning">
+            F grades and self-study courses are ignored in CGPA calculation
+            (they are listed as notes below).
+        </div>
+        <div class="results" id="cgpaResults">
+            <p class="info">Results will appear here after calculation.</p>
+        </div>
+    </div>
 </div>
 
 <script>
-// UNIVERSITY GRADE TABLE
-const gradePoints = {
-    "A+": 4.00, "A": 3.75, "A-": 3.50,
-    "B+": 3.25, "B": 3.00, "B-": 2.75,
-    "C+": 2.50, "C": 2.25, "D": 2.00,
-    "F": 0
-};
-
-// globals for overall CGPA calc
-let semesterCredits = 0;
-let semesterGpa = 0;
-
-/* Extract course info from pasted text */
-function extractData() {
-    const raw = document.getElementById("inputText").value;
-    if (!raw.trim()) {
-        alert("Please paste marksheet text first.");
-        return;
+    // ======== Grade → Grade point mapping ========
+    function getGradePoint(grade) {
+        const gradePoints = {
+            'A+': 4.0,
+            'A': 3.75,
+            'A-': 3.5,
+            'B+': 3.25,
+            'B': 3.0,
+            'B-': 2.75,
+            'C+': 2.5,
+            'C': 2.25,
+            'D': 2.0,
+            'F': 0.0
+        };
+        return gradePoints[grade] ?? null;
     }
 
-    const lines = raw.split(/\r?\n/);
-    const courses = [];
+    // Convert "Level 1 - Term I" → "1st Semester", etc.
+    function getSemesterKey(levelTerm) {
+        if (!levelTerm) return 'Unknown Semester';
 
-    for (let line of lines) {
-        line = line.trim();
-        if (!line) continue;
+        const romanToInt = {
+            'I': 1, 'II': 2, 'III': 3, 'IV': 4,
+            'V': 5, 'VI': 6, 'VII': 7, 'VIII': 8
+        };
 
-        // Skip header row
-        if (line.toLowerCase().includes("course code") ||
-            line.toLowerCase().includes("course credit")) {
-            continue;
+        const match = levelTerm.match(/Level\s+(\d+)\s*-\s*Term\s+([0-9IVX]+)/i);
+        if (!match) return 'Unknown Semester';
+
+        const level = parseInt(match[1], 10);
+        let termRaw = match[2].toUpperCase();
+
+        let term = parseInt(termRaw, 10);
+        if (isNaN(term)) {
+            term = romanToInt[termRaw] || 1;
         }
 
-        // First try splitting by TABs
-        let cells = line.split(/\t+/);
+        const semesterNumber = (level - 1) * 2 + term;
 
-        // If not enough columns, fall back to splitting by 2+ spaces
-        if (cells.length < 5) {
-            cells = line.split(/\s{2,}/);
+        let suffix = 'th';
+        if (semesterNumber % 10 === 1 && semesterNumber !== 11) suffix = 'st';
+        else if (semesterNumber % 10 === 2 && semesterNumber !== 12) suffix = 'nd';
+        else if (semesterNumber % 10 === 3 && semesterNumber !== 13) suffix = 'rd';
+
+        return `${semesterNumber}${suffix} Semester`;
+    }
+
+    // Parse pasted text into course rows
+    function parseMarksheet(text) {
+        const lines = text.split(/\r?\n/);
+        const rows = [];
+
+        for (let line of lines) {
+            line = line.trim();
+            if (!line) continue;
+
+            // Skip header line
+            if (line.toLowerCase().includes('course code') &&
+                line.toLowerCase().includes('course credit')) {
+                continue;
+            }
+
+            // Prefer TAB-separated
+            let cells = line.split(/\t+/);
+            if (cells.length < 5) {
+                // Fallback to multiple spaces
+                cells = line.split(/\s{2,}/);
+            }
+            if (cells.length < 5) continue;
+
+            const courseCode = cells[0].trim();
+            const credit = parseFloat(cells[1].trim());
+            const levelTerm = cells[2].trim();
+            const grade = cells[4].trim().toUpperCase();
+            const courseType = (cells[5] || '').trim();
+
+            if (!courseCode || isNaN(credit) || !grade) continue;
+
+            rows.push({ courseCode, credit, levelTerm, grade, courseType });
         }
 
-        if (cells.length < 5) continue; // still not enough data
-
-        const code = cells[0].trim();
-        const credit = parseFloat(cells[1].trim());
-        const gradeRaw = cells[4].trim(); // "Result" column
-        const grade = gradeRaw.toUpperCase();
-
-        if (!code || isNaN(credit) || !grade) continue;
-
-        courses.push({ code, credit, grade });
+        return rows;
     }
 
-    if (courses.length === 0) {
-        alert("No valid course data found!");
-        document.getElementById("courseTable").innerHTML = "";
-        document.getElementById("gpaResult").innerHTML = "";
-        return;
-    }
+    function calculateAndRender() {
+        const text = document.getElementById('inputText').value;
+        const resultsDiv = document.getElementById('cgpaResults');
 
-    renderTable(courses);
-    calculateSemesterGPA(courses);
-}
-
-/* Display extracted data in a table */
-function renderTable(courses) {
-    let html = `
-        <table>
-            <tr>
-                <th>Course Code</th>
-                <th>Credit</th>
-                <th>Grade</th>
-                <th>Grade Point</th>
-            </tr>
-    `;
-
-    courses.forEach(c => {
-        const gp = gradePoints[c.grade];
-        html += `
-            <tr>
-                <td>${c.code}</td>
-                <td>${c.credit}</td>
-                <td>${c.grade}</td>
-                <td>${gp !== undefined ? gp.toFixed(2) : "Invalid"}</td>
-            </tr>
-        `;
-    });
-
-    html += "</table>";
-    document.getElementById("courseTable").innerHTML = html;
-}
-
-/* Calculate semester GPA */
-function calculateSemesterGPA(courses) {
-    let totalCredits = 0;
-    let weightedPoints = 0;
-
-    courses.forEach(c => {
-        const gp = gradePoints[c.grade];
-        if (gp !== undefined) {
-            totalCredits += c.credit;
-            weightedPoints += c.credit * gp;
+        if (!text.trim()) {
+            resultsDiv.innerHTML = '<p class="error">Please paste marksheet text first.</p>';
+            return;
         }
-    });
 
-    if (totalCredits === 0) {
-        document.getElementById("gpaResult").innerHTML = `
-            <div class="result-box">
-                Could not calculate GPA (no valid grades).
-            </div>`;
-        semesterCredits = 0;
-        semesterGpa = 0;
-        return;
+        const rows = parseMarksheet(text);
+
+        if (rows.length === 0) {
+            resultsDiv.innerHTML = '<p class="error">No valid course rows found. Check the format.</p>';
+            return;
+        }
+
+        // Data structure similar to your extension code
+        const semesters = {};
+        let totalCredits = 0;       // only regular courses
+        let totalGradePoints = 0;   // only regular courses
+
+        rows.forEach(row => {
+            const { courseCode, credit, levelTerm, grade, courseType } = row;
+
+            const semesterKey = getSemesterKey(levelTerm);
+            if (!semesters[semesterKey]) {
+                semesters[semesterKey] = {
+                    credits: 0,
+                    gradePoints: 0,
+                    selfStudyCourses: [],
+                    failedCourses: [],
+                    regularCredits: 0,
+                    regularGradePoints: 0
+                };
+            }
+
+            // Handle F grade (tracked but not counted)
+            if (grade === 'F') {
+                semesters[semesterKey].failedCourses.push(courseCode);
+                return;
+            }
+
+            const gradePoint = getGradePoint(grade);
+            if (gradePoint === null) return; // unknown grade
+
+            const courseGradePoints = gradePoint * credit;
+
+            // Self-study vs regular
+            if (courseType.toLowerCase() === 'self study') {
+                semesters[semesterKey].selfStudyCourses.push(courseCode);
+            } else {
+                semesters[semesterKey].regularCredits += credit;
+                semesters[semesterKey].regularGradePoints += courseGradePoints;
+
+                totalCredits += credit;
+                totalGradePoints += courseGradePoints;
+            }
+
+            // Totals including everything (for info only)
+            semesters[semesterKey].credits += credit;
+            semesters[semesterKey].gradePoints += courseGradePoints;
+        });
+
+        // Build HTML output
+        let html = '';
+
+        const semesterKeys = Object.keys(semesters).sort((a, b) => {
+            const numA = parseInt(a.match(/\d+/)[0], 10);
+            const numB = parseInt(b.match(/\d+/)[0], 10);
+            return numA - numB;
+        });
+
+        semesterKeys.forEach(semester => {
+            const semData = semesters[semester];
+            const semCredits = semData.regularCredits;
+            const semGradePoints = semData.regularGradePoints;
+
+            const cgpa = semCredits > 0
+                ? (semGradePoints / semCredits).toFixed(2)
+                : 'N/A';
+
+            let extras = [];
+
+            if (semData.selfStudyCourses.length > 0) {
+                extras.push(`Self-study: ${semData.selfStudyCourses.join(', ')}`);
+            }
+            if (semData.failedCourses.length > 0) {
+                extras.push(`<span class="failed">Failed (ignored): ${semData.failedCourses.join(', ')}</span>`);
+            }
+
+            html += `<div class="semester">
+                        <strong>${semester}:</strong>
+                        <span class="cgpa-value">${cgpa}</span>
+                        ${extras.length ? `<span class="additional-info">(${extras.join('; ')})</span>` : ''}
+                     </div>`;
+        });
+
+        html += '<hr>';
+
+        const overallCGPA = totalCredits > 0
+            ? (totalGradePoints / totalCredits).toFixed(2)
+            : 'N/A';
+
+        html += `<div class="semester">
+                    <strong>Overall CGPA:</strong>
+                    <span class="cgpa-value">${overallCGPA}</span>
+                 </div>`;
+
+        resultsDiv.innerHTML = html;
     }
 
-    const gpa = weightedPoints / totalCredits;
-    semesterCredits = totalCredits;
-    semesterGpa = gpa;
-
-    document.getElementById("gpaResult").innerHTML = `
-        <div class="result-box">
-            <b>Semester GPA:</b> ${gpa.toFixed(2)}<br>
-            <b>Total Credits this semester:</b> ${totalCredits}
-        </div>
-    `;
-}
-
-/* Calculate overall CGPA */
-function calculateOverall() {
-    if (semesterCredits === 0) {
-        alert("Please extract courses and compute the semester GPA first.");
-        return;
-    }
-
-    const prevCredits = parseFloat(document.getElementById("prevCredits").value);
-    const prevCgpa = parseFloat(document.getElementById("prevCgpa").value);
-
-    if (isNaN(prevCredits) || isNaN(prevCgpa) || prevCredits < 0) {
-        alert("Enter valid previous credits and CGPA.");
-        return;
-    }
-
-    const oldPoints = prevCredits * prevCgpa;
-    const newPoints = semesterCredits * semesterGpa;
-    const totalCredits = prevCredits + semesterCredits;
-
-    const finalCgpa = (oldPoints + newPoints) / totalCredits;
-
-    document.getElementById("overallResult").innerHTML = `
-        <div class="result-box">
-            <b>Overall CGPA:</b> ${finalCgpa.toFixed(2)}<br>
-            <b>Total Credits (previous + this term):</b> ${totalCredits}
-        </div>
-    `;
-}
+    document.getElementById('calcBtn').addEventListener('click', calculateAndRender);
 </script>
-
 </body>
 </html>
